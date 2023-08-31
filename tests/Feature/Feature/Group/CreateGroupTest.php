@@ -20,11 +20,21 @@ class CreateGroupTest extends TestCase
         $assignedTo = User::factory()->createOne();
 
         $this->actingAs($user);
+        $groupName = 'Funcionário';
 
         // Act
-        $this->post(route('group.api.store'), [
-            'name'        => 'Funcionário',
-            'slug'        => Str::slug('Funcionário', '-'),
+        $request = $this->post(route('groups.api.store'), [
+            'name'        => $groupName,
+            'slug'        => Str::slug($groupName, '-'),
+            'description' => 'Funcionários da equipe',
+        ]);
+
+        // Assert
+        $request->assertRedirect(route('groups.index'));
+
+        $this->assertDatabaseHas('groups', [
+            'name'        => $groupName,
+            'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
         ]);
 
