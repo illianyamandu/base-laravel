@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Rodar o phpstan
-./vendor/bin/phpstan
+./vendor/bin/phpstan analyze --memory-limit-2G
 if [ $? -ne 0 ]; then
     echo "Pera! Deu ruim aqui com PHPSTAN. Arrume antes de continuar... 😉";
     exit 1;
