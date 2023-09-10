@@ -4,9 +4,8 @@ namespace App\Traits;
 
 use Illuminate\Support\Str;
 
-trait UUID
+trait Guid
 {
-
     protected static function boot()
     {
         // Boot other traits on the Model

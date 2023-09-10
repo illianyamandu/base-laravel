@@ -10,8 +10,9 @@ class Group extends BaseModel
      * @var string
      */
     protected $table = 'groups';
+
     /**
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'name', 'slug', 'description',
