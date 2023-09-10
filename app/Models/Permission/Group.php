@@ -12,7 +12,7 @@ class Group extends BaseModel
     protected $table = 'groups';
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'name', 'slug', 'description',
