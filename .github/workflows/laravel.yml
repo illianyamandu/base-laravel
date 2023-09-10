@@ -33,7 +33,7 @@ jobs:
     - name: Build Assets
       run: npm run build
         
-    - name: Execute tests (Unit and Feature tests) via PEST
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
