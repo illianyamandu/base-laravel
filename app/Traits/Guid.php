@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 
 trait Guid
 {
-
     protected static function boot()
     {
         // Boot other traits on the Model
