@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
     /**==================================== groups routes ====================================*/
     Route::get('/groups', function () {
-        return;
+
     })->name('groups.index');
 });
 
