@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Permission\Group;
+use App\Models\Permissions\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -30,4 +30,24 @@ Route::namespace('Api')->group(function () {
 
         return redirect()->route('groups.index');
     })->name('groups.api.store');
+
+    Route::put('/{group_id}', function ($group_id) {
+        $group = Group::find($group_id);
+
+        $group->update([
+            'name'        => request()->name,
+            'slug'        => Str::slug(request()->name, '-'),
+            'description' => request()->description,
+        ]);
+
+        return redirect()->route('groups.index');
+    })->name('groups.api.edit');
+
+    Route::delete('/{group_id}', function ($group_id) {
+        $group = Group::find($group_id);
+
+        $group->delete();
+
+        return redirect()->route('groups.index');
+    })->name('groups.api.destroy');
 });

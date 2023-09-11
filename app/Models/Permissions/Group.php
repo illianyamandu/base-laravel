@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Permission;
+namespace App\Models\Permissions;
 
 use App\Models\Base\BaseModel;
 
