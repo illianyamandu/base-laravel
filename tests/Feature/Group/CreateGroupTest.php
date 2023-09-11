@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Feature\Group;
+namespace Tests\Feature\Group;
 
 use App\Models\User;
 use Illuminate\Support\Str;
