@@ -32,7 +32,7 @@ class CreateGroupTest extends TestCase
         // Assert
         $request->assertRedirect(route('groups.index'));
 
-        $this->assertDatabaseMissing('groups', [
+        $this->assertDatabaseHas('groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
