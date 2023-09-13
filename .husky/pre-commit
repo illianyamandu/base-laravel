@@ -7,8 +7,6 @@ echo "Aguarde, Rodando PHPStan... 😉";
 echo "";
 ./vendor/bin/phpstan analyze --memory-limit=2G
 if [ $? -ne 0 ]; then
-    echo "PERA, deu errado com o PHPStan!!!";
-    echo "";
     exit 1;
 fi;
 
@@ -17,9 +15,6 @@ echo "Aguarde, Rodando testes.. 😉";
 echo "";
 php artisan test --parallel
 if [ $? -ne 0 ]; then
-    echo "";
-    echo "PERA, deu errado com os testes!!!";
-    echo "";
     exit 1;
 fi;
 
