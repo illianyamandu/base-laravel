@@ -11,7 +11,7 @@ if [ $? -ne 0 ]; then
 fi;
 
 # rodar os testes
-echo "Aguarde, Rodando testes.. 😉";
+echo "Aguarde, Rodando testes... 😉";
 echo "";
 php artisan test --parallel
 if [ $? -ne 0 ]; then

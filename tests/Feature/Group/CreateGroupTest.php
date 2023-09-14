@@ -37,6 +37,136 @@ class CreateGroupTest extends TestCase
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
         ]);
+    }
 
+    /**
+     * @test
+     */
+    public function name_shoud_be_required()
+    {
+        // Arrange
+        /** @var User $user */
+        $user = User::factory()->createOne();
+
+        $this->actingAs($user);
+        $groupName = null;
+
+        // Act
+        $request = $this->post(route('groups.api.store'), [
+            'name'        => $groupName,
+            'slug'        => Str::slug($groupName, '-'),
+            'description' => 'Funcionários da equipe',
+        ]);
+
+        // Assert
+        $request->assertStatus(401)
+                ->assertJsonPath('error.name', [
+                    'The name field is required.',
+                ]);
+    }
+
+    /**
+     * @test
+     */
+    public function description_shoud_be_required()
+    {
+        // Arrange
+        /** @var User $user */
+        $user = User::factory()->createOne();
+
+        $this->actingAs($user);
+        $groupName = 'Funcionário';
+
+        // Act
+        $request = $this->post(route('groups.api.store'), [
+            'name'        => $groupName,
+            'slug'        => Str::slug($groupName, '-'),
+            'description' => null,
+        ]);
+
+        // Assert
+        $request->assertStatus(401)
+                ->assertJsonPath('error.description', [
+                    'The description field is required.',
+                ]);
+    }
+
+    /**
+     * @test
+     */
+    public function slug_shoud_be_required()
+    {
+        // Arrange
+        /** @var User $user */
+        $user = User::factory()->createOne();
+
+        $this->actingAs($user);
+        $groupName = 'Funcionário';
+
+        // Act
+        $request = $this->post(route('groups.api.store'), [
+            'name'        => $groupName,
+            'slug'        => null,
+            'description' => 'Lorem impsum',
+        ]);
+
+        // Assert
+        $request->assertStatus(401)
+                ->assertJsonPath('error.slug', [
+                    'The slug field is required.',
+                ]);
+    }
+
+    /**
+     * @test
+     */
+    public function name_should_be_have_maximum_255_character()
+    {
+        // Arrange
+        /** @var User $user */
+        $user = User::factory()->createOne();
+
+        $this->actingAs($user);
+        $groupName = str_repeat('a', 256);
+
+        // Act
+        $request = $this->post(route('groups.api.store'), [
+            'name'        => $groupName,
+            'slug'        => Str::slug($groupName, '-'),
+            'description' => 'Funcionários da equipe',
+        ]);
+
+        // Assert
+        $request->assertStatus(401)
+                ->assertJsonPath('error.name', [
+                    'The name field must not be greater than 255 characters.',
+                ]);
+
+    }
+
+    /**
+     * @test
+     */
+    public function slug_should_be_have_maximum_255_character()
+    {
+        // Arrange
+        /** @var User $user */
+        $user = User::factory()->createOne();
+
+        $this->actingAs($user);
+        $groupName = str_repeat('a', 256);
+
+        // Act
+        $request = $this->post(route('groups.api.store'), [
+            'name'        => $groupName,
+            'slug'        => Str::slug($groupName, '-'),
+            'description' => 'Funcionários da equipe',
+        ]);
+
+        // Assert
+        $request->assertStatus(401)
+                ->assertJsonPath('error.slug', [
+                    'The slug field must not be greater than 255 characters.',
+                ]);
     }
 }
