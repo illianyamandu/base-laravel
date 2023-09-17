@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Group;
 
+use App\Models\Permissions\Group;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -168,5 +169,28 @@ class CreateGroupTest extends TestCase
                 ->assertJsonPath('error.slug', [
                     'The slug field must not be greater than 255 characters.',
                 ]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_be_able_to_add_a_group_to_a_user()
+    {
+        // Arrange
+        /** @var User $user */
+        $user = User::factory()->createOne();
+
+        /** @var Group $user */
+        $group = Group::factory()->createOne();
+
+        // Act
+        $user->addToGroup($group->id);
+
+        // Assert
+        $this->assertTrue($user->belongsToTheGroup($group->id));
+        $this->assertDatabaseHas('group_user', [
+            'user_id'  => $user->id,
+            'group_id' => $group->id,
+        ]);
     }
 }

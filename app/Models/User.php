@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Permissions\Group;
 use App\Traits\Guid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,4 +48,35 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    /**
+     * @param string $groupId
+     */
+    public function addToGroup(string $groupId): void
+    {
+        $group = Group::find($groupId);
+
+        if (!$group) {
+            return;
+        }
+
+        $this->groups()->attach($group);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_user');
+    }
+
+    /**
+     * @param string $groupId
+     * @return bool
+     */
+    public function belongsToTheGroup(string $groupId): bool
+    {
+        return $this->groups()->where('id', $groupId)->exists();
+    }
 }
