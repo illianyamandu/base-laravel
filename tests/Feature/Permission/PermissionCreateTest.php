@@ -68,4 +68,101 @@ class PermissionCreateTest extends TestCase
             'user_id'       => $user->id,
         ]);
     }
+
+    /**
+     * @test
+     */
+    public function assert_that_group_permission_pivot_table_is_filled_when_a_permission_is_given_to_a_group()
+    {
+        // Arrange
+        $group = Group::factory()->createOne();
+
+        // Act
+        $name           = 'Create Users';
+        $identifierName = Str::slug($name);
+        $group->givePermissionTo(
+            $name,
+            'Allow to create users'
+        );
+
+        // Assert
+        $this->assertDatabaseHas('group_permission', [
+            'group_id'      => $group->id,
+            'permission_id' => $group->permissions()->where('identifier_name', $identifierName)->first()->id,
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function assert_that_permission_user_pivot_table_is_filled_when_a_permission_is_given_to_a_group()
+    {
+        // Arrange
+        $user  = User::factory()->createOne();
+        $group = Group::factory()->createOne();
+
+        // Act
+        $user->addToGroup($group->id);
+
+        $name           = 'Create Users';
+        $identifierName = Str::slug($name);
+        $group->givePermissionTo(
+            $name,
+            'Allow to create users'
+        );
+
+        // Assert
+        $this->assertDatabaseHas('permission_user', [
+            'user_id'       => $user->id,
+            'permission_id' => $group->permissions()->where('identifier_name', $identifierName)->first()->id,
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function assert_that_permission_user_pivot_table_is_filled_when_a_permission_is_given_to_an_user()
+    {
+        // Arrange
+        $user  = User::factory()->createOne();
+        $group = Group::factory()->createOne();
+
+        $this->actingAs($user);
+
+        // Act
+        $name = 'create-user';
+        $group->givePermissionTo($name);
+
+        $user->givePermissionTo(Str::slug($name));
+
+        // Assert
+        $this->assertDatabaseHas('permission_user', [
+            'user_id'       => $user->id,
+            'permission_id' => $group->permissions()->where('identifier_name', Str::slug($name))->first()->id,
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function assert_that_group_user_pivot_table_is_filled_when_a_permission_is_given_to_an_user()
+    {
+        // Arrange
+        $user  = User::factory()->createOne();
+        $group = Group::factory()->createOne();
+
+        $this->actingAs($user);
+
+        // Act
+        $name = 'create-user';
+        $group->givePermissionTo($name);
+
+        $user->givePermissionTo(Str::slug($name));
+
+        // Assert
+        $this->assertDatabaseHas('group_user', [
+            'user_id'  => $user->id,
+            'group_id' => $group->id,
+        ]);
+    }
 }

@@ -82,7 +82,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $permission = $permission->first();
 
+        /** Filling permissio_user pivot */
         $this->permissions()->attach($permission);
+
+        /** Filling group_user pivot by permission*/
+        $this->permissions()->each(function ($permissions) {
+            $permissions->groups()->each(function ($group) {
+                $group->users()->attach($this);
+            });
+        });
     }
 
     /**

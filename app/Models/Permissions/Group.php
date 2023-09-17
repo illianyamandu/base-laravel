@@ -59,7 +59,10 @@ class Group extends BaseModel
             'description'     => $description,
         ]);
 
+        /** Filling group_permission pivot */
         $this->permissions()->attach($permission);
+
+        /** Filling group_user pivot by permission */
         $this->users()->each(function ($user) use ($permission) {
             $user->permissions()->attach($permission);
         });
