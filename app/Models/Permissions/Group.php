@@ -3,6 +3,7 @@
 namespace App\Models\Permissions;
 
 use App\Models\Base\BaseModel;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
@@ -21,17 +22,11 @@ class Group extends BaseModel
     ];
 
     /**
-     * @param string $permissionName
+     * @return BelongsToMany
      */
-    public function givePermissionTo(string $permissionName, string $description): void
+    public function users(): BelongsToMany
     {
-        $permission = Permission::query()->firstOrCreate([
-            'identifier_name' => Str::slug($permissionName),
-            'name'            => $permissionName,
-            'description'     => $description,
-        ]);
-
-        $this->permissions()->attach($permission);
+        return $this->belongsToMany(User::class, 'group_user');
     }
 
     /**
@@ -50,5 +45,23 @@ class Group extends BaseModel
     public function hasPermissionTo(string $identifierName): bool
     {
         return $this->permissions()->where('identifier_name', $identifierName)->exists();
+    }
+
+    /**
+     * @param string $permissionName
+     * @param mixed $description
+     */
+    public function givePermissionTo(string $permissionName, mixed $description = null): void
+    {
+        $permission = Permission::query()->firstOrCreate([
+            'identifier_name' => Str::slug($permissionName),
+            'name'            => $permissionName,
+            'description'     => $description,
+        ]);
+
+        $this->permissions()->attach($permission);
+        $this->users()->each(function ($user) use ($permission) {
+            $user->permissions()->attach($permission);
+        });
     }
 }

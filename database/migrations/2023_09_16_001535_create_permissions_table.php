@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->uuid('id')->primary();
             $table->string('identifier_name', 255)->unique();
             $table->string('name', 255);
-            $table->string('description', 255);
+            $table->string('description', 255)->nullable();
             $table->timestamps();
             $table->createdUpdatedBy();
         });
