@@ -16,8 +16,18 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next, string $permissionIdentifier)
     {
+        $boll        = false;
+        $identifiers = explode('|', $permissionIdentifier);
+
+        /** If user has at least one permission it will be approved  */
+        foreach ($identifiers as $identifier) {
+            if ($request->user()->can($identifier)) {
+                $boll = true;
+            }
+        }
+
         abort_unless(
-            $request->user()->can($permissionIdentifier),
+            $boll,
             Response::HTTP_FORBIDDEN
         );
 
