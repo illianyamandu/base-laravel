@@ -366,7 +366,7 @@
                 <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/10">
                     <div class="flex justify-between mb-6">
                         <div>
-                            <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&dollar;</span>100,9</div>
+                            <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">R&dollar;</span>100,9</div>
                             <div class="text-sm font-medium text-gray-400">Notificações</div>
                         </div>
                         <div class="dropdown">
