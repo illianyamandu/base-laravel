@@ -27,10 +27,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    /**==================================== groups routes ====================================*/
+    // -----------------------------------------------------------------------------
+    // Groups routes
+    // -----------------------------------------------------------------------------
     Route::get('/groups', function () {
-
     })->name('groups.index');
+
+    // -----------------------------------------------------------------------------
+    // Admin Dashboard routes
+    // -----------------------------------------------------------------------------
+    Route::prefix('admin')->group(function () {
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+    });
 });
 
 require __DIR__ . '/auth.php';
