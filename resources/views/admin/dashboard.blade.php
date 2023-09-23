@@ -296,6 +296,99 @@
                 </li>
             </ul>
         </div>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/10">
+                    <div class="flex justify-between mb-6">
+                        <div>
+                            <div class="text-2xl font-semibold mb-1">10</div>
+                            <div class="text-sm font-medium text-gray-400">Notificações</div>
+                        </div>
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-toggle text-gray-400 hover:text-gray-600"><i class="ri-more-fill"></i></button>
+                            
+                            <ul class="dropdown-menu hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-full bg-gray-100 rounded-full h-4">
+                            <div class="h-full bg-blue-500 rounded-full p-1" style="width: 60%;">
+                                <div class="w-2 h-2 rounded-full bg-white ml-auto"></div>
+                            </div>
+                        </div>
+                        <div class="text-sm font-medium text-gray-600 ml-4">60%</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/10">
+                    <div class="flex justify-between mb-4">
+                        <div>
+                            <div class="flex mb-1 items-center">
+                                <div class="text-2xl font-semibold">1000</div>
+                                <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
+                            </div>
+                            <div class="text-sm font-medium text-gray-400">Visitas</div>
+                        </div>
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-toggle text-gray-400 hover:text-gray-600"><i class="ri-more-fill"></i></button>
+                            
+                            <ul class="dropdown-menu hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block -ml-3">
+                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block -ml-3">
+                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block -ml-3">
+                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block -ml-3">
+                    </div>
+                </div>
+                <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/10">
+                    <div class="flex justify-between mb-6">
+                        <div>
+                            <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&dollar;</span>100,9</div>
+                            <div class="text-sm font-medium text-gray-400">Notificações</div>
+                        </div>
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-toggle text-gray-400 hover:text-gray-600"><i class="ri-more-fill"></i></button>
+                            
+                            <ul class="dropdown-menu hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Perfil</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-900 hover:bg-gray-50">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#" class="text-blue-600 font-medium text-sm hover:text-blue-900">Ver detalhes</a>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- End: Main Section -->
 
