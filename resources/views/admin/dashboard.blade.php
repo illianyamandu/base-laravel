@@ -22,7 +22,7 @@
 </head>
 <body class="text-gray-800 font-sans">
     <!-- Start: Sidebar -->
-    <div class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4">
+    <div class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform">
         <a class="flex items-center pb-4 border-b border-b-gray-800">
             <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
             <span class="text-sm">Painel Admin</span>
@@ -81,12 +81,13 @@
             </li>
         </ul>
     </div>
+    <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
     <!-- End: Sidebar -->
 
     <!-- Start: Main Section -->
-    <main class="w-[calc(100%-256px)] ml-64 bg-gray-50 min-h-screen">
+    <main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 min-h-screen transition-all main">
         <div class="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5">
-            <button type="button" class="text-lg text-gray-600">
+            <button type="button" class="text-lg text-gray-600 sidebar-toggle">
                 <i class="ri-menu-line"></i>
             </button>
 
