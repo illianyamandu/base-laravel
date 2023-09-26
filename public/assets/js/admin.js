@@ -134,3 +134,44 @@ document.querySelectorAll('[data-tab]').forEach(function (item) {
     });
 });
 // End: Tab
+
+// Start: Chart
+new Chart(document.getElementById('order-chart'), {
+    type: 'line',
+    data: {
+      labels: generateNDays(7),
+      datasets: [{
+        label: '# of Votes',
+        data: generateRandomData(7),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+});
+
+function generateNDays(n){
+    const data  = [];
+    for(let i = 0; i < n; i++){
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        data.push(date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric' 
+        }));
+    }
+    return data;
+}
+
+function generateRandomData(n){
+    const data  = [];
+    for(let i = 0; i < n; i++){
+        data.push(Math.round(Math.random() * 10));
+    }
+}
+// End: Chart
