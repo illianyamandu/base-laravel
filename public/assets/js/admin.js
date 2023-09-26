@@ -140,11 +140,38 @@ new Chart(document.getElementById('order-chart'), {
     type: 'line',
     data: {
       labels: generateNDays(7),
-      datasets: [{
-        label: '# of Votes',
-        data: generateRandomData(7),
-        borderWidth: 1
-      }]
+      datasets: [
+        {
+            label: 'Iniciado',
+            data: generateRandomData(7),
+            borderWidth: 1,
+            fill: true,
+            pointBackgroundColor: 'rgb(59, 130, 246)',
+            borderColor: 'rgb(59, 130, 246)',
+            backgroundColor: 'rgb(59 130 246 / 0.05)',
+            tension: .2
+        },
+        {
+            label: 'Concluído',
+            data: generateRandomData(7),
+            borderWidth: 1,
+            fill: true,
+            pointBackgroundColor: 'rgb(16, 185, 129)',
+            borderColor: 'rgb(16, 185, 129)',
+            backgroundColor: 'rgb(16 185 129 / .05)',
+            tension: .2
+        },
+        {
+            label: 'Finalizado',
+            data: generateRandomData(7),
+            borderWidth: 1,
+            fill: true,
+            pointBackgroundColor: 'rgb(244, 63, 94)',
+            borderColor: 'rgb(244, 63, 94)',
+            backgroundColor: 'rgb(244 63 94 / 0.05)',
+            tension: .2
+        },
+    ]
     },
     options: {
       scales: {
@@ -173,5 +200,6 @@ function generateRandomData(n){
     for(let i = 0; i < n; i++){
         data.push(Math.round(Math.random() * 10));
     }
+    return data;
 }
 // End: Chart
