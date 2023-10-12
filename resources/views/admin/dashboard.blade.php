@@ -27,59 +27,27 @@
             <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded object-cover">
             <span class="text-sm">Painel Admin</span>
         </a>
-        <ul class="mt-4">
-            <li class="mb-1 group active">
-                <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class="ri-home-2-line mr-3 text-lg"></i>
-                    <span class="text-sm">Painel</span>
-                </a>
-            </li>
+        
+        <x-sidebar.ul>
+            <x-sidebar.li name="Painel" icon="ri-home-2-line mr-3 text-lg"/> {{-- Adicionar classe 'active' para o <li> ativo --}}
+            <x-sidebar.li name="Mensagem" icon="ri-message-line mr-3 text-lg"/>
+            <x-sidebar.li name="Serviços" icon="ri-service-fill mr-3 text-lg" submenu="true">
 
-            <li class="mb-1 group">
-                <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
-                    <i class="ri-message-line mr-3 text-lg"></i>
-                    <span class="text-sm">Mensagens</span>
-                </a>
-            </li>
+                <x-submenu.ul>
+                    <x-submenu.li name="Grupos"/>
+                    <x-submenu.li name="Usuário"/>
+                    <x-submenu.li name="Permissões"/>
+                </x-submenu.ul>
+                
+            </x-sidebar.li>
+            <x-sidebar.li name="Configurações" icon="ri-tools-line mr-3 text-lg" submenu="true">
 
-            <li class="mb-1 group">
-                <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
-                    <i class="ri-service-fill mr-3 text-lg"></i>
-                    <span class="text-sm">Serviços</span>
-                    <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
-                </a>
-
-                <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                    <li class="mb-4">
-                        <a href="#" class="text-gray-300 hover:text-gray-100 text-sm flex items-center before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Grupos</a>
-                    </li>
-
-                    <li class="mb-4">
-                        <a href="#" class="text-gray-300 hover:text-gray-100 text-sm flex items-center before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Usuários</a>
-                    </li>
-
-                    <li class="mb-4">
-                        <a href="#" class="text-gray-300 hover:text-gray-100 text-sm flex items-center before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Permissões</a>
-                    </li>
-                </ul>
-
-            </li>
-
-            <li class="mb-1 group">
-                <a href="#" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100 sidebar-dropdown-toggle">
-                    <i class="ri-tools-line mr-3 text-lg"></i>
-                    <span class="text-sm">Configurações</span>
-                    <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90"></i>
-                </a>
-
-                <ul class="pl-7 mt-2 hidden group-[.selected]:block">
-                    <li class="mb-4">
-                        <a href="#" class="text-gray-300 hover:text-gray-100 text-sm flex items-center before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Sistema</a>
-                    </li>
-                </ul>
-
-            </li>
-        </ul>
+                <x-submenu.ul>
+                    <x-submenu.li name="Sistema"/>
+                </x-submenu.ul>
+                
+            </x-sidebar.li>
+        </x-sidebar.ul>
     </div>
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
     <!-- End: Sidebar -->
