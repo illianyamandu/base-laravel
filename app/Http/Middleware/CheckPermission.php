@@ -26,6 +26,7 @@ class CheckPermission
             }
         }
 
+        /** Returning forbidden */
         abort_unless(
             $boll,
             Response::HTTP_FORBIDDEN
