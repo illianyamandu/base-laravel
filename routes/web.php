@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+
+        Route::get('/2', function () {
+            return view('admin.main-section');
+        })->name('admin.main-section');
     });
 });
 
