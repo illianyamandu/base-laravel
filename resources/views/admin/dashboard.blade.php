@@ -82,57 +82,15 @@
                         </form>
                         <div class="mt-3 mb-2">
                             <div class="text-[13px] font-medium text-gray-400 ml-4 mb-2">Recentes</div>
-                            <ul class="max-h-64 overflow-y-auto">
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Criando landing page</div>
-                                            <div class="text-[11px] text-gray-400">R$ 100</div>
-                                        </div>
-                                    </a>
-                                </li>
+                            
+                            <x-historical-data.ul>
+                                <x-historical-data.li smallMsg="R$ 100,00" message="Criando lading page"/>
+                                <x-historical-data.li smallMsg="R$ 100,00" message="Criando lading page"/>
+                                <x-historical-data.li smallMsg="R$ 100,00" message="Criando lading page"/>
+                                <x-historical-data.li smallMsg="R$ 100,00" message="Criando lading page"/>
+                                <x-historical-data.li smallMsg="R$ 100,00" message="Criando lading page"/>
+                            </x-historical-data.ul>
 
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Criando landing page</div>
-                                            <div class="text-[11px] text-gray-400">R$ 100</div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Criando landing page</div>
-                                            <div class="text-[11px] text-gray-400">R$ 100</div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Criando landing page</div>
-                                            <div class="text-[11px] text-gray-400">R$ 100</div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Criando landing page</div>
-                                            <div class="text-[11px] text-gray-400">R$ 100</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
 
@@ -149,100 +107,21 @@
                             <button type="button" data-tab="notification" data-tab-page="messages" class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 p-1">Mensagens</button>
                         </div>
                         <div class="my-2">
-                            <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Nova ação</div>
-                                            <div class="text-[11px] text-gray-400">Usuário</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Nova ação</div>
-                                            <div class="text-[11px] text-gray-400">Usuário</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Nova ação</div>
-                                            <div class="text-[11px] text-gray-400">Usuário</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Nova ação</div>
-                                            <div class="text-[11px] text-gray-400">Usuário</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Nova ação</div>
-                                            <div class="text-[11px] text-gray-400">Usuário</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification" data-page="messages">
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Illian</div>
-                                            <div class="text-[11px] text-gray-400">Olá, mundo!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Illian</div>
-                                            <div class="text-[11px] text-gray-400">Olá, mundo!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Illian</div>
-                                            <div class="text-[11px] text-gray-400">Olá, mundo!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Illian</div>
-                                            <div class="text-[11px] text-gray-400">Olá, mundo!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">
-                                        <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded block object-cover align-middle">
-                                        <div class="ml-2">
-                                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-blue-900">Illian</div>
-                                            <div class="text-[11px] text-gray-400">Olá, mundo!</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                            <x-historical-data.ul tabFor='notification' page="notifications">
+                                <x-historical-data.li smallMsg="Usuário" message="Nova ação"/>
+                                <x-historical-data.li smallMsg="Usuário" message="Nova ação"/>
+                                <x-historical-data.li smallMsg="Usuário" message="Nova ação"/>
+                                <x-historical-data.li smallMsg="Usuário" message="Nova ação"/>
+                                <x-historical-data.li smallMsg="Usuário" message="Nova ação"/>
+                            </x-historical-data.ul>
+
+                            <x-historical-data.ul tabFor='notification' page="messages">
+                                <x-historical-data.li smallMsg="Olá, Mundo" message="Illian"/>
+                                <x-historical-data.li smallMsg="Olá, Mundo" message="Illian"/>
+                                <x-historical-data.li smallMsg="Olá, Mundo" message="Illian"/>
+                                <x-historical-data.li smallMsg="Olá, Mundo" message="Illian"/>
+                                <x-historical-data.li smallMsg="Olá, Mundo" message="Illian"/>
+                            </x-historical-data.ul>
                         </div>
                     </div>
                 </li>
