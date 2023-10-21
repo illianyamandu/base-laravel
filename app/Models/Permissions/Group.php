@@ -24,6 +24,16 @@ class Group extends BaseModel
         'name', 'slug', 'description',
     ];
 
+    /**
+     * @return string[]
+     */
+    public function getListingData()
+    {
+        return [
+            'id', 'name', 'slug', 'description',
+        ];
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'group_user');

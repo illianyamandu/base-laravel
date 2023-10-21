@@ -64,16 +64,12 @@ Route::middleware('auth')->group(function () {
         // -----------------------------------------------------------------------------
         // Groups routes
         // -----------------------------------------------------------------------------
-        Route::prefix('/groups')->group(function () {
-            Route::get('/', [GroupAdminController::class, 'index'])->name('groups.index');
-        });
+        buildStandardWebRoutes('groups', GroupAdminController::class);
 
         // -----------------------------------------------------------------------------
         // Users routes
         // -----------------------------------------------------------------------------
-        Route::prefix('/users')->group(function () {
-            Route::get('/', [UserAdminController::class, 'index'])->name('users.index');
-        });
+        buildStandardWebRoutes('users', UserAdminController::class);
     });
 });
 

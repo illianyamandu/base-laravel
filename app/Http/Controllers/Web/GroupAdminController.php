@@ -13,6 +13,8 @@ class GroupAdminController extends BaseWebController
             new Group(),
             'admin.groups.index',
             'admin.groups.create',
+            'admin.groups.edit',
+            'admin.groups.show',
         );
     }
 }

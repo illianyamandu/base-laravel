@@ -12,14 +12,14 @@ class BaseWebController extends Controller
         protected BaseModel $class,
         protected ?string $indexView = null,
         protected ?string $createView = null,
-        protected ?string $showView = null,
         protected ?string $editView = null,
+        protected ?string $showView = null,
     ) {
         $this->class      = $class;
         $this->indexView  = $indexView;
         $this->createView = $createView;
-        $this->showView   = $showView;
         $this->editView   = $editView;
+        $this->showView   = $showView;
     }
 
     /**
@@ -35,7 +35,7 @@ class BaseWebController extends Controller
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
         $data = $this->getCreateData();
 
@@ -43,9 +43,55 @@ class BaseWebController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function edit(Request $request, string $id)
+    {
+        $data    = $this->getEditData($id);
+        $element = $this->class::find($id);
+
+        if (!$element) {
+            abort(404);
+        }
+
+        return view($this->editView, compact('data', 'element'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show(Request $request, string $id)
+    {
+        $data    = $this->getShowData($id);
+        $element = $this->class::find($id);
+
+        if (!$element) {
+            abort(404);
+        }
+
+        return view($this->showView, compact('data', 'element'));
+    }
+
+    /**
      * @return array<int|null>
      */
     public function getCreateData()
+    {
+        return [];
+    }
+
+    /**
+     * @return array<int|null>
+     */
+    public function getEditData(string $id)
+    {
+        return [];
+    }
+
+    /**
+     * @return array<int|null>
+     */
+    public function getShowData(string $id)
     {
         return [];
     }

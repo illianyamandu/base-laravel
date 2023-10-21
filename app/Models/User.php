@@ -51,6 +51,16 @@ class User extends BaseModelAuthenticatable implements MustVerifyEmail
     ];
 
     /**
+     * @return string[]
+     */
+    public function getListingData()
+    {
+        return [
+            'id', 'name', 'email', 'password',
+        ];
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function groups(): BelongsToMany
