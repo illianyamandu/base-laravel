@@ -19,6 +19,8 @@
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 </head>
 <body class="text-gray-800 font-sans">
     <!-- Start: Sidebar -->
@@ -34,7 +36,7 @@
             <x-sidebar.li name="Permissões" icon="ri-lock-2-line mr-3 text-lg" submenu="true">
 
                 <x-submenu.ul>
-                    <x-submenu.li name="Grupos"/>
+                    <x-submenu.li name="Grupos" :href="route('groups.index')"/>
                     <x-submenu.li name="Permissões"/>
                     <x-submenu.li name="Usuário"/>
                 </x-submenu.ul>
@@ -150,5 +152,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="{{ asset('assets/js/admin.js') }}"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+    @yield('scripts')
 </body>
 </html>
