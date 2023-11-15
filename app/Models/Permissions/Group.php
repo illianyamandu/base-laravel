@@ -4,11 +4,14 @@ namespace App\Models\Permissions;
 
 use App\Models\Base\BaseModel;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Group extends BaseModel
 {
+    use HasFactory;
+
     /**
      * @var string
      */

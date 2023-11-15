@@ -31,16 +31,16 @@
         <x-sidebar.ul>
             <x-sidebar.li name="Painel" icon="ri-home-2-line mr-3 text-lg" class="active"/>
             <x-sidebar.li name="Mensagem" icon="ri-message-line mr-3 text-lg"/>
-            <x-sidebar.li name="Serviços" icon="ri-service-fill mr-3 text-lg" submenu="true">
+            <x-sidebar.li name="Permissões" icon="ri-lock-2-line mr-3 text-lg" submenu="true">
 
                 <x-submenu.ul>
                     <x-submenu.li name="Grupos"/>
-                    <x-submenu.li name="Usuário"/>
                     <x-submenu.li name="Permissões"/>
+                    <x-submenu.li name="Usuário"/>
                 </x-submenu.ul>
                 
             </x-sidebar.li>
-            <x-sidebar.li name="Configurações" icon="ri-tools-line mr-3 text-lg" submenu="true">
+            <x-sidebar.li name="Configurações" icon="ri-settings-2-line mr-3 text-lg" submenu="true">
 
                 <x-submenu.ul>
                     <x-submenu.li name="Sistema"/>
