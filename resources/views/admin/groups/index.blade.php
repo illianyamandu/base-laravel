@@ -290,7 +290,7 @@
                             </button>
                         </td>
                     </tr>
-                    
+
                 </tbody>
             </table>
             <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 bg-gray-600" aria-label="Table navigation">

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{Controller, ProfileController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +13,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+
+if (!function_exists('buildStandardWebRoutes')) {
+    /**
+     * @param string $name
+     * @param Controller $controller
+     */
+    function buildStandardWebRoutes($name, $controller): void
+    {
+        Route::prefix($name)->group(function () use ($name, $controller) {
+            Route::get('/', [$controller, 'index'])->name($name . '.index');
+            Route::get('/create', [$controller, 'create'])->name($name . '.create');
+            Route::post('/', [$controller, 'store'])->name($name . '.store');
+            Route::get('/{id}', [$controller, 'show'])->name($name . '.show');
+            Route::get('/{id}/edit', [$controller, 'edit'])->name($name . '.edit');
+            Route::put('/{id}', [$controller, 'update'])->name($name . '.update');
+            Route::delete('/{id}', [$controller, 'destroy'])->name($name . '.destroy');
+        });
+    }
+}
 
 Route::get('/', function () {
     return view('welcome');
