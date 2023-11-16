@@ -18,17 +18,19 @@ if (!function_exists('buildStandardWebRoutes')) {
     /**
      * @param string $name
      * @param Controller $controller
+     * @param callable|null $additionalRoutes
      */
-    function buildStandardWebRoutes($name, $controller): void
+    function buildStandardWebRoutes($name, $controller, $additionalRoutes = null): void
     {
-        Route::prefix($name)->group(function () use ($name, $controller) {
+        Route::prefix($name)->group(function () use ($name, $controller, $additionalRoutes) {
             Route::get('/', [$controller, 'index'])->name($name . '.index');
             Route::get('/create', [$controller, 'create'])->name($name . '.create');
-            Route::post('/', [$controller, 'store'])->name($name . '.store');
             Route::get('/{id}', [$controller, 'show'])->name($name . '.show');
             Route::get('/{id}/edit', [$controller, 'edit'])->name($name . '.edit');
-            Route::put('/{id}', [$controller, 'update'])->name($name . '.update');
-            Route::delete('/{id}', [$controller, 'destroy'])->name($name . '.destroy');
+
+            if (!is_null($additionalRoutes)) {
+                $additionalRoutes();
+            }
         });
     }
 }
