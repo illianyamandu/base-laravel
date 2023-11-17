@@ -21,7 +21,7 @@ class BaseModel extends Model
      */
     public function getListingData()
     {
-        return $this->fillable;
+        return $this->getFillable();
     }
 
     /**
@@ -40,7 +40,7 @@ class BaseModel extends Model
      */
     public static function listing(Request $request)
     {
-        $instance    = new self();
+        $instance    = new static();
         $listingData = $instance->getListingData();
 
         /** Building query */
