@@ -44,6 +44,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Api')->group(function () {
+    // -----------------------------------------------------------------------------
+    // Groups routes
+    // -----------------------------------------------------------------------------
     Route::prefix('groups')->group(function () {
         Route::post('/', [GroupApiController::class, "store"])->name('groups.api.store');
         Route::put('/{group_id}', [GroupApiController::class, 'edit'])->name('groups.api.edit');

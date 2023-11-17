@@ -13,6 +13,8 @@ return new class () extends Migration {
         Schema::create('permission_user', function (Blueprint $table) {
             $table->uuid('user_id');
             $table->uuid('permission_id');
+
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
