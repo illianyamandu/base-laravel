@@ -4,6 +4,7 @@ namespace App\Models\Base;
 
 use App\Interfaces\IBaseModel;
 use App\Traits\Guid;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\{Builder, Collection, Model, SoftDeletes};
 use Illuminate\Http\Request;
 
@@ -27,7 +28,10 @@ class BaseModel extends Model implements IBaseModel
         return $query;
     }
 
-    public static function listing(Request $request): Collection
+    /**
+     * @return Collection|LengthAwarePaginator
+     */
+    public static function listing(Request $request, bool $noPagination = false, int $perPage = 10)
     {
         $instance    = new static();
         $listingData = $instance->getListingData();
@@ -36,6 +40,10 @@ class BaseModel extends Model implements IBaseModel
         $query = self::query();
         $query = $instance->addListingFilters($query, $request);
 
-        return $query->get($listingData);
+        if ($noPagination) {
+            return $query->get($listingData);
+        }
+
+        return $query->paginate($perPage, $listingData);
     }
 }

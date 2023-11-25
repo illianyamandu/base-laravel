@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\{Builder, Collection};
 use Illuminate\Http\Request;
 
@@ -14,5 +15,8 @@ interface IBaseModel
      */
     public function getListingData();
 
-    public static function listing(Request $request): Collection;
+    /**
+     * @return Collection|LengthAwarePaginator
+     */
+    public static function listing(Request $request, bool $noPagination = false, int $perPage = 10);
 }

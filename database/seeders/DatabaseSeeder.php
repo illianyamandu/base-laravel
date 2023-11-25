@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
             'password' => 'D26m04a03',
         ]);
 
-        Group::factory(10)->create();
+        Group::factory(20)->create();
     }
 }

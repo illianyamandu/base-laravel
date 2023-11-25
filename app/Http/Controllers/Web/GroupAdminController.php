@@ -9,6 +9,9 @@ class GroupAdminController extends BaseWebController
 {
     public function __construct()
     {
-        parent::__construct(new Group());
+        parent::__construct(
+            new Group(),
+            'admin.groups.index'
+        );
     }
 }
