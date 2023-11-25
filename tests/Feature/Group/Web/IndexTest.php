@@ -3,7 +3,7 @@
 namespace Tests\Feature\Group\Web;
 
 use App\Models\Permissions\Group;
-use Illuminate\Foundation\Testing\{RefreshDatabase, WithFaker};
+
 use Tests\TestCase;
 
 class IndexTest extends TestCase

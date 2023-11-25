@@ -2,19 +2,17 @@
 
 namespace App\Models\Base;
 
+use App\Interfaces\IBaseModel;
 use App\Traits\Guid;
 use Illuminate\Database\Eloquent\{Builder, Collection, Model, SoftDeletes};
 use Illuminate\Http\Request;
 
-class BaseModel extends Model
+class BaseModel extends Model implements IBaseModel
 {
     use SoftDeletes;
     use Guid;
 
-    /**
-     * @var string
-     */
-    public static $guidempty = "00000000-0000-0000-0000-000000000000";
+    public static string $guidempty = "00000000-0000-0000-0000-000000000000";
 
     /**
      * @return string[]
@@ -24,21 +22,12 @@ class BaseModel extends Model
         return $this->getFillable();
     }
 
-    /**
-     * @param Builder $query
-     * @param Request $request
-     * @return Builder
-     */
     public function addListingFilters(Builder $query, Request $request): Builder
     {
         return $query;
     }
 
-    /**
-     * @param Request $request
-     * @return Collection
-     */
-    public static function listing(Request $request)
+    public static function listing(Request $request): Collection
     {
         $instance    = new static();
         $listingData = $instance->getListingData();
