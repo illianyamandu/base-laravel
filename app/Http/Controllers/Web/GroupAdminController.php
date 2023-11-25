@@ -9,7 +9,6 @@ class GroupAdminController extends BaseWebController
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
         parent::__construct(new Group());
     }
 }
