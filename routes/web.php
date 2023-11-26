@@ -67,6 +67,13 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/groups')->group(function () {
             Route::get('/', [GroupAdminController::class, 'index'])->name('groups.index');
         });
+
+        // -----------------------------------------------------------------------------
+        // Users routes
+        // -----------------------------------------------------------------------------
+        Route::prefix('/users')->group(function () {
+            Route::get('/', [GroupAdminController::class, 'index'])->name('groups.index');
+        });
     });
 });
 
