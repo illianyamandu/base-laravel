@@ -10,7 +10,7 @@
                             Nome
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Slug
+                            E-mail
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Ações
@@ -24,7 +24,7 @@
                                 {{ $item->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $item->slug }}
+                                {{ $item->email }}
                             </td>
                             <td class="px-6 py-4">
                                 <button

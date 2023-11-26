@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Web\GroupAdminController;
+use App\Http\Controllers\Web\{GroupAdminController, UserAdminController};
 use App\Http\Controllers\{Controller, ProfileController};
 use Illuminate\Support\Facades\Route;
 
@@ -72,7 +72,7 @@ Route::middleware('auth')->group(function () {
         // Users routes
         // -----------------------------------------------------------------------------
         Route::prefix('/users')->group(function () {
-            Route::get('/', [GroupAdminController::class, 'index'])->name('groups.index');
+            Route::get('/', [UserAdminController::class, 'index'])->name('users.index');
         });
     });
 });

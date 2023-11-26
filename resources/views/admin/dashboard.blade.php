@@ -38,7 +38,7 @@
                 <x-submenu.ul>
                     <x-submenu.li name="Grupos" :href="route('groups.index')"/>
                     <x-submenu.li name="Permissões"/>
-                    <x-submenu.li name="Usuário"/>
+                    <x-submenu.li name="Usuário" :href="route('users.index')"/>
                 </x-submenu.ul>
                 
             </x-sidebar.li>
