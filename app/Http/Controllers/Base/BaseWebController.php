@@ -31,4 +31,22 @@ class BaseWebController extends Controller
 
         return view($this->indexView, compact('data'));
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function create()
+    {
+        $data = $this->getCreateData();
+
+        return view($this->createView, compact('data'));
+    }
+
+    /**
+     * @return array<int|null>
+     */
+    public function getCreateData()
+    {
+        return [];
+    }
 }
