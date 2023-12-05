@@ -4,13 +4,32 @@
 
     if (!isset($actions))
         $actions = [];
+
+    if (!isset($createAction))
+        $createAction = null;
+
+    if (!isset($title))
+        $title = null;
 @endphp
 
 @extends('admin.dashboard')
 
 @section('content')
     <div class="p-6">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        @if ($title || $createAction)
+            <div class="mb-4 flex justify-between items-center">
+                <div>
+                    <p class="text-4xl font-extrabold text-gray-800">{{ $title }}</p>
+                </div>
+
+                @if ($createAction)
+                    <div>
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Cadastrar</button>
+                    </div>
+                @endif
+            </div>
+        @endif
+        <div class="relative bg-red-400 overflow-x-auto shadow-md sm:rounded-lg">
             <table id="table_id2" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

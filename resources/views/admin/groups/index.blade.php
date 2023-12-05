@@ -1,4 +1,6 @@
 @extends('admin.list-view', [
+    "createAction" => "admin.groups.create",
+    "title" => "Grupos",
     "tableItems" => [
         [
             "columnName" => "Nome",
