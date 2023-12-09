@@ -1,5 +1,5 @@
 @extends('admin.list-view', [
-    "createAction" => "admin.groups.create",
+    "createAction" => route('groups.create'),
     "title" => "Grupos",
     "tableItems" => [
         [
@@ -14,12 +14,16 @@
     ],
     "actions" => [
         [
+            "name" => "show", 
+            "route" => "groups.show"
+        ],
+        [
             "name" => "edit", 
-            "route" => "admin.groups.edit"
+            "route" => "groups.edit"
         ],
         [
             "name" => "destroy",
-            "route" => "admin.groups.destroy"
+            "route" => "#"
         ]
     ],
 ])
