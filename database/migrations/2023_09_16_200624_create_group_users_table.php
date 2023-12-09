@@ -13,6 +13,8 @@ return new class () extends Migration {
         Schema::create('group_user', function (Blueprint $table) {
             $table->uuid('user_id');
             $table->uuid('group_id');
+
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

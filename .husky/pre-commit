@@ -1,19 +1,19 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# rodar os testes
+echo "Aguarde, Rodando testes... 😉";
+echo "";
+php artisan test --parallel
+if [ $? -ne 0 ]; then
+    exit 1;
+fi;
+
 # Rodar o phpstan
 echo "";
 echo "Aguarde, Rodando PHPStan... 😉";
 echo "";
 ./vendor/bin/phpstan analyze --memory-limit=2G
-if [ $? -ne 0 ]; then
-    exit 1;
-fi;
-
-# rodar os testes
-echo "Aguarde, Rodando testes... 😉";
-echo "";
-php artisan test --parallel
 if [ $? -ne 0 ]; then
     exit 1;
 fi;

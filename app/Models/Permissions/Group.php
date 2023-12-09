@@ -4,11 +4,14 @@ namespace App\Models\Permissions;
 
 use App\Models\Base\BaseModel;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Group extends BaseModel
 {
+    use HasFactory;
+
     /**
      * @var string
      */
@@ -22,35 +25,30 @@ class Group extends BaseModel
     ];
 
     /**
-     * @return BelongsToMany
+     * @return string[]
      */
+    public function getListingData()
+    {
+        return [
+            'id', 'name', 'slug', 'description',
+        ];
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'group_user');
     }
 
-    /**
-     * @return BelongsToMany
-     */
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'group_permission');
     }
 
-    /**
-     * @param string $identifierName
-     *
-     * @return bool
-     */
     public function hasPermissionTo(string $identifierName): bool
     {
         return $this->permissions()->where('identifier_name', $identifierName)->exists();
     }
 
-    /**
-     * @param string $permissionName
-     * @param mixed $description
-     */
     public function givePermissionTo(string $permissionName, mixed $description = null): void
     {
         $permission = Permission::query()->firstOrCreate([

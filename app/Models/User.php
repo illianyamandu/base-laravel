@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Base\BaseModelAuthenticatable;
 use App\Models\Permissions\{Group, Permission};
 use App\Traits\Guid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends BaseModelAuthenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -49,6 +49,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    /**
+     * @return string[]
+     */
+    public function getListingData()
+    {
+        return [
+            'id', 'name', 'email', 'password',
+        ];
+    }
 
     /**
      * @return BelongsToMany

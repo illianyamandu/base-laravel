@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Group;
+namespace Tests\Feature\Group\API;
 
 use App\Models\Permissions\Group;
 use App\Models\User;

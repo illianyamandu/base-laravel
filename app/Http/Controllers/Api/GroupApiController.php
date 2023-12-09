@@ -60,7 +60,7 @@ class GroupApiController extends Controller
      */
     public function destroy(Request $request, string $groupId)
     {
-        Group::find($groupId)->delete();
+        Group::find($groupId)->forceDelete();
 
         return redirect()->route('groups.index');
     }

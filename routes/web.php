@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Web\{GroupAdminController, UserAdminController};
+use App\Http\Controllers\{Controller, ProfileController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,27 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+
+if (!function_exists('buildStandardWebRoutes')) {
+    /**
+     * @param string $name
+     * @param Controller $controller
+     * @param callable|null $additionalRoutes
+     */
+    function buildStandardWebRoutes($name, $controller, $additionalRoutes = null): void
+    {
+        Route::prefix($name)->group(function () use ($name, $controller, $additionalRoutes) {
+            Route::get('/', [$controller, 'index'])->name($name . '.index');
+            Route::get('/create', [$controller, 'create'])->name($name . '.create');
+            Route::get('/{id}', [$controller, 'show'])->name($name . '.show');
+            Route::get('/{id}/edit', [$controller, 'edit'])->name($name . '.edit');
+
+            if (!is_null($additionalRoutes)) {
+                $additionalRoutes();
+            }
+        });
+    }
+}
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,10 +49,28 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    /**==================================== groups routes ====================================*/
-    Route::get('/groups', function () {
+    // -----------------------------------------------------------------------------
+    // Admin Dashboard routes
+    // -----------------------------------------------------------------------------
+    Route::prefix('/admin')->group(function () {
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
 
-    })->name('groups.index');
+        Route::get('/2', function () {
+            return view('admin.main-section');
+        })->name('admin.main-section');
+
+        // -----------------------------------------------------------------------------
+        // Groups routes
+        // -----------------------------------------------------------------------------
+        buildStandardWebRoutes('groups', GroupAdminController::class);
+
+        // -----------------------------------------------------------------------------
+        // Users routes
+        // -----------------------------------------------------------------------------
+        buildStandardWebRoutes('users', UserAdminController::class);
+    });
 });
 
 require __DIR__ . '/auth.php';
