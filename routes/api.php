@@ -25,10 +25,8 @@ if (!function_exists('buildStandardAPIRoutes')) {
     {
         Route::prefix($name)->group(function () use ($name, $controller, $additionalRoutes) {
             Route::get('/', [$controller, 'list'])->name($name . 'api.list');
-            Route::get('/create', [$controller, 'create'])->name($name . 'api.create');
+            Route::get('/{id}', [$controller, 'detailed'])->name($name . 'api.detailed');
             Route::post('/', [$controller, 'store'])->name($name . 'api.store');
-            Route::get('/{id}', [$controller, 'show'])->name($name . 'api.show');
-            Route::get('/{id}/edit', [$controller, 'edit'])->name($name . 'api.edit');
             Route::put('/{id}', [$controller, 'update'])->name($name . 'api.update');
             Route::delete('/{id}', [$controller, 'destroy'])->name($name . 'api.destroy');
 
