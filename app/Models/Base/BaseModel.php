@@ -46,4 +46,9 @@ class BaseModel extends Model implements IBaseModel
 
         return $query->paginate($perPage, $listingData);
     }
+
+    public static function store(Request $request): void
+    {
+
+    }
 }

@@ -10,7 +10,7 @@ class UserAdminController extends BaseWebController
     public function __construct()
     {
         parent::__construct(
-            new User(),
+            User::class,
             'admin.users.index',
             'admin.users.create',
             'admin.users.edit',
