@@ -24,6 +24,15 @@ class Group extends BaseModel
         'name', 'slug', 'description',
     ];
 
+    public function getStoreValidator($data)
+    {
+        return [
+            'name'        => 'required|max:255',
+            'slug'        => 'required|max:255',
+            'description' => 'required',
+        ];
+    }
+
     /**
      * @return string[]
      */

@@ -31,7 +31,10 @@ class CreateGroupTest extends TestCase
         ]);
 
         // Assert
-        $request->assertRedirect(route('groups.index'));
+        $request->assertStatus(200)
+        ->assertJson([
+            'success' => true,
+        ]);
 
         $this->assertDatabaseHas('groups', [
             'name'        => $groupName,
@@ -60,10 +63,13 @@ class CreateGroupTest extends TestCase
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.name', [
-                    'The name field is required.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo name é obrigatório.', $arrayResponse['errors']);
     }
 
     /**
@@ -86,10 +92,13 @@ class CreateGroupTest extends TestCase
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.description', [
-                    'The description field is required.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo description é obrigatório.', $arrayResponse['errors']);
     }
 
     /**
@@ -112,10 +121,13 @@ class CreateGroupTest extends TestCase
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.slug', [
-                    'The slug field is required.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo slug é obrigatório.', $arrayResponse['errors']);
     }
 
     /**
@@ -138,10 +150,13 @@ class CreateGroupTest extends TestCase
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.name', [
-                    'The name field must not be greater than 255 characters.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo name não pode ser superior a 255 caracteres.', $arrayResponse['errors']);
 
     }
 
@@ -165,10 +180,13 @@ class CreateGroupTest extends TestCase
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.slug', [
-                    'The slug field must not be greater than 255 characters.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo slug não pode ser superior a 255 caracteres.', $arrayResponse['errors']);
     }
 
     /**

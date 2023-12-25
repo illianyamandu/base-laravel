@@ -43,9 +43,9 @@ class BaseJsonResponse
     public static function error($message, $code = 400, $errors = [], $messages = [])
     {
         if (is_array($message)) {
-            if (empty($messages)) {
-                $messages = $message;
-                $message  = 'Ocorreu um erro';
+            if (empty($errors)) {
+                $errors  = $message;
+                $message = 'Ocorreu um erro';
             } else {
                 $message = implode('; ', $message);
             }

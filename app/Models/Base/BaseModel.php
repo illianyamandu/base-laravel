@@ -166,6 +166,7 @@ class BaseModel extends Model implements IBaseModel
 
     /**
      * @param array<string, mixed> $data
+     *
      * @return array<string, mixed>
      */
     public function getStoreValidator($data)
@@ -207,6 +208,7 @@ class BaseModel extends Model implements IBaseModel
 
     /**
      * @param array<string, mixed> $data
+     *
      * @return array<string, mixed>
      */
     public function prepareDataForStoreOrUpdate(&$data, bool $updating = false)
@@ -230,6 +232,7 @@ class BaseModel extends Model implements IBaseModel
 
     /**
      * @param array<string, mixed> $data
+     *
      * @return object|Illuminate\Support\Facades\Validator
      */
     public static function storeData($data)
