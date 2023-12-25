@@ -4,11 +4,13 @@ namespace App\Models\Base;
 
 use App\Interfaces\IBaseModel;
 use App\Traits\Guid;
+use App\Utils\BaseJsonResponse;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Database\Eloquent\{Builder, Collection, Model, SoftDeletes};
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Log, Validator};
+use Illuminate\Http\{JsonResponse, Request};
+use Illuminate\Support\Facades\{DB, Log, Validator};
 
 class BaseModel extends Model implements IBaseModel
 {
@@ -171,9 +173,36 @@ class BaseModel extends Model implements IBaseModel
         return [];
     }
 
-    public static function actionSuccess(): bool
+    /**
+     * @param JsonResponse|ValidationValidator|array<string|int, mixed> $data
+     */
+    public static function actionSuccess($data): bool
     {
-        return true;
+        return !(
+            $data instanceof ValidationValidator ||
+            ($data instanceof JsonResponse && !$data->original[BaseJsonResponse::$successFild])
+        );
+    }
+
+    /**
+     * @param Exception|ValidationValidator|JsonResponse $data
+     * @param bool $doRollback
+     *
+     * @return JsonResponse
+     */
+    public static function buildResponse($data, $doRollback = false)
+    {
+        if ($doRollback) DB::rollback();
+
+        if ($data instanceof Exception) {
+            return BaseJsonResponse::exception($data);
+        }
+
+        if ($data instanceof ValidationValidator) {
+            return BaseJsonResponse::error($data->errors()->all());
+        }
+
+        return $data;
     }
 
     /**
@@ -185,16 +214,17 @@ class BaseModel extends Model implements IBaseModel
         return $data;
     }
 
-    public static function store(Request $request): void
+    public static function store(Request $request): JsonResponse
     {
         try {
             $data = $request->all();
             $item = static::storeData($data);
 
-            if (!static::actionSuccess()) return;
+            if (!static::actionSuccess($item)) return static::buildResponse($item);
 
+            return BaseJsonResponse::success("Registro salvo com sucesso", $item->toArray());
         } catch (Exception $e) {
-            Log::error($e);
+            return BaseJsonResponse::exception($e);
         }
     }
 
@@ -207,7 +237,11 @@ class BaseModel extends Model implements IBaseModel
         $instance = new static();
         $instance->prepareDataForStoreOrUpdate($data);
 
-        $validator = Validator::make($data, $instance->getStoreValidator($data), $instance->getValidatorErrorMessages());
+        $validator = Validator::make(
+            $data,
+            $instance->getStoreValidator($data),
+            $instance->getValidatorErrorMessages()
+        );
 
         if ($validator->fails()) return $validator;
 

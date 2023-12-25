@@ -7,17 +7,17 @@ use Illuminate\Support\Facades\Log;
 
 class BaseJsonResponse
 {
-    private static string $succesFild = 'success';
+    public static string $successFild = 'success';
 
-    private static string $errorFild = 'errors';
+    public static string $errorFild = 'errors';
 
-    private static string $dataFild = 'data';
+    public static string $dataFild = 'data';
 
-    private static string $messageFild = 'message';
+    public static string $messageFild = 'message';
 
-    private static string $codeFild = 'status_code';
+    public static string $codeFild = 'status_code';
 
-    private static string $messages = 'messages';
+    public static string $messages = 'messages';
 
     /**
      * @param string $message
@@ -79,7 +79,7 @@ class BaseJsonResponse
     private static function response($success, $data, $message, $code, $errors, $messages)
     {
         return response()->json([
-            self::$succesFild  => $success,
+            self::$successFild => $success,
             self::$dataFild    => $data,
             self::$messageFild => $message,
             self::$errorFild   => $errors,
