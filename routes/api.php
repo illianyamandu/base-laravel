@@ -47,7 +47,7 @@ Route::namespace('Api')->group(function () {
     // -----------------------------------------------------------------------------
     Route::prefix('groups')->group(function () {
         Route::post('/', [GroupApiController::class, "store"])->name('groups.api.store');
-        Route::put('/{group_id}', [GroupApiController::class, 'edit'])->name('groups.api.edit');
+        Route::put('/{group_id}', [GroupApiController::class, 'update'])->name('groups.api.update');
         Route::delete('/{group_id}', [GroupApiController::class, 'destroy'])->name('groups.api.destroy');
     });
 });

@@ -24,4 +24,9 @@ class BaseApiController extends Controller
         return $this->class::store($request);
     }
 
+    public function update(Request $request, string $id): JsonResponse
+    {
+        return $this->class::edit($request, $id);
+    }
+
 }

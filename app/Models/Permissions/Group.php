@@ -43,6 +43,21 @@ class Group extends BaseModel
         ];
     }
 
+    public static function editData($data, &$dbInstance)
+    {
+        if (!isset($data['name'])) {
+            $data['name'] = $dbInstance->name;
+        } elseif (strcasecmp($data['name'], $dbInstance->name) !== 0) {
+            $data['slug'] = Str::slug($data['name'], '-');
+        }
+
+        if (!isset($data['description'])) {
+            $data['description'] = $dbInstance->description;
+        }
+
+        return parent::editData($data, $dbInstance);
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'group_user');

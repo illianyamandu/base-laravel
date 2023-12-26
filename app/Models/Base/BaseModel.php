@@ -190,8 +190,7 @@ abstract class BaseModel extends Model implements IBaseModel
      */
     public function getEditValidator($data, $id)
     {
-        return [];
-
+        return $this->getStoreValidator($data);
     }
 
     /**
