@@ -335,7 +335,7 @@ abstract class BaseModel extends Model implements IBaseModel
         return $dbInstance;
     }
 
-    public function deleteItem(Request $request, string $id, bool $onlySoftDelete = true): JsonResponse
+    public static function deleteItem(Request $request, string $id, bool $onlySoftDelete = true): JsonResponse
     {
         $item = static::find($id);
 

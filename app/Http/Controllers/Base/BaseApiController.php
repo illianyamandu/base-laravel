@@ -29,7 +29,7 @@ abstract class BaseApiController extends Controller
         return $this->class::edit($request, $id);
     }
 
-    public function destroyy(Request $request, string $id): JsonResponse
+    public function destroy(Request $request, string $id): JsonResponse
     {
         return $this->class::deleteItem($request, $id, false);
     }

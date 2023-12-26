@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Base\BaseModel;
 use Illuminate\Http\Request;
 
-class BaseWebController extends Controller
+abstract class BaseWebController extends Controller
 {
     public function __construct(
         protected string $class,
