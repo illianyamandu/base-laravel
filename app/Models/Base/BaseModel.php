@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\{Builder, Collection, Model, SoftDeletes};
 use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Support\Facades\{DB, Log, Validator};
 
-class BaseModel extends Model implements IBaseModel
+abstract class BaseModel extends Model implements IBaseModel
 {
     use SoftDeletes;
     use Guid;
@@ -165,6 +165,14 @@ class BaseModel extends Model implements IBaseModel
     }
 
     /**
+     * @return string[]
+     */
+    public function fildsForUpdate()
+    {
+        return $this->getFillable();
+    }
+
+    /**
      * @param array<string, mixed> $data
      *
      * @return array<string, mixed>
@@ -175,7 +183,42 @@ class BaseModel extends Model implements IBaseModel
     }
 
     /**
-     * @param JsonResponse|ValidationValidator|array<string|int, mixed> $data
+     * @param array<string, mixed> $data
+     * @param string $id
+     *
+     * @return array<string, mixed>
+     */
+    public function getEditValidator($data, $id)
+    {
+        return [];
+
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param Model $dbInstance
+     *
+     * @return array<string, mixed>
+     */
+    public function cleanDataForUpdate($data, $dbInstance)
+    {
+        $fildsForUpdate = [];
+        $filds          = $this->fildsForUpdate();
+
+        foreach($filds as $fild) {
+            if(strcasecmp('id', $fild) == 0)
+            continue;
+
+            if(array_key_exists($fild, $data)) {
+                $fildsForUpdate[$fild] = $data[$fild];
+            }
+        }
+
+        return $fildsForUpdate;
+    }
+
+    /**
+     * @param JsonResponse|Model|ValidationValidator|array<string|int, mixed> $data
      */
     public static function actionSuccess($data): bool
     {
@@ -186,7 +229,7 @@ class BaseModel extends Model implements IBaseModel
     }
 
     /**
-     * @param Exception|ValidationValidator|JsonResponse $data
+     * @param Model|Exception|ValidationValidator|JsonResponse $data
      * @param bool $doRollback
      *
      * @return JsonResponse
@@ -211,7 +254,7 @@ class BaseModel extends Model implements IBaseModel
      *
      * @return array<string, mixed>
      */
-    public function prepareDataForStoreOrUpdate(&$data, bool $updating = false)
+    public function prepareDataForStoreOrEdit(&$data, bool $updating = false)
     {
         return $data;
     }
@@ -219,8 +262,7 @@ class BaseModel extends Model implements IBaseModel
     public static function store(Request $request): JsonResponse
     {
         try {
-            $data = $request->all();
-            $item = static::storeData($data);
+            $item = static::storeData($request->all());
 
             if (!static::actionSuccess($item)) return static::buildResponse($item);
 
@@ -233,12 +275,12 @@ class BaseModel extends Model implements IBaseModel
     /**
      * @param array<string, mixed> $data
      *
-     * @return object|Illuminate\Support\Facades\Validator
+     * @return Model|ValidationValidator
      */
     public static function storeData($data)
     {
         $instance = new static();
-        $instance->prepareDataForStoreOrUpdate($data);
+        $instance->prepareDataForStoreOrEdit($data);
 
         $validator = Validator::make(
             $data,
@@ -249,5 +291,48 @@ class BaseModel extends Model implements IBaseModel
         if ($validator->fails()) return $validator;
 
         return self::create($data);
+    }
+
+    public static function edit(Request $request, string $id): JsonResponse
+    {
+        try {
+            $dbInstance = static::find($id);
+
+            if (!$dbInstance) return BaseJsonResponse::notFound("Registro não encontrado");
+
+            $item = static::editData($request->all(), $dbInstance);
+
+            if(!static::actionSuccess($item)) return static::buildResponse($item);
+
+            return BaseJsonResponse::success("Registro atualizado com sucesso", $item->toArray());
+        } catch(Exception $e) {
+            return BaseJsonResponse::exception($e);
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param mixed $dbInstance
+     *
+     * @return Model|ValidationValidator
+     */
+    public static function editData($data, &$dbInstance)
+    {
+        $instance = new static();
+        $instance->prepareDataForStoreOrEdit($data, true);
+
+        $validator = Validator::make(
+            $data,
+            $instance->getEditValidator($data, $dbInstance->id),
+            $instance->getValidatorErrorMessages()
+        );
+
+        if ($validator->fails()) return $validator;
+
+        $data = $instance->cleanDataForUpdate($data, $dbInstance);
+        $dbInstance->update($data);
+        $dbInstance->fresh();
+
+        return $dbInstance;
     }
 }

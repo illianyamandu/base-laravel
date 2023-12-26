@@ -67,6 +67,16 @@ class BaseJsonResponse
     }
 
     /**
+     * @param string $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function notFound($message = 'Não encontrado')
+    {
+        return self::error($message, 404);
+    }
+
+    /**
      * @param bool $success
      * @param array<string, mixed> $data
      * @param string $message
