@@ -353,4 +353,25 @@ abstract class BaseModel extends Model implements IBaseModel
             return BaseJsonResponse::exception($e);
         }
     }
+
+    /**
+     * @return Model|Collection|array<string, mixed>|null
+     */
+    public function getDetailedItem(string $id)
+    {
+        return static::find($id);
+    }
+
+    public static function detailed(Request $request, string $id): JsonResponse
+    {
+        $instance = new static();
+
+        $item = $instance->getDetailedItem($id);
+
+        if (!$item) return BaseJsonResponse::notFound("Registro não encontrado");
+
+        if (!is_array($item)) $item = $item->toArray();
+
+        return BaseJsonResponse::success("Registro encontrado", $item);
+    }
 }

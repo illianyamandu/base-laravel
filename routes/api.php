@@ -29,6 +29,7 @@ if (!function_exists('buildStandardAPIRoutes')) {
             Route::post('/', [$controller, 'store'])->name($name . 'api.store');
             Route::put('/{id}', [$controller, 'update'])->name($name . 'api.update');
             Route::delete('/{id}', [$controller, 'destroy'])->name($name . 'api.destroy');
+            Route::delete('/{id}', [$controller, 'archive'])->name($name . 'api.archive');
 
             if (!is_null($additionalRoutes)) {
                 $additionalRoutes();

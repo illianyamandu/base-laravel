@@ -19,6 +19,11 @@ abstract class BaseApiController extends Controller
         $this->class = $class;
     }
 
+    public function detailed(Request $request, string $id): JsonResponse
+    {
+        return $this->class::detailed($request, $id);
+    }
+
     public function store(Request $request): JsonResponse
     {
         return $this->class::store($request);
