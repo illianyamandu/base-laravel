@@ -334,4 +334,23 @@ abstract class BaseModel extends Model implements IBaseModel
 
         return $dbInstance;
     }
+
+    public function deleteItem(Request $request, string $id, bool $onlySoftDelete = true): JsonResponse
+    {
+        $item = static::find($id);
+
+        if (!$item) return BaseJsonResponse::notFound("Registro não encontrado");
+
+        try {
+            if ($onlySoftDelete) {
+                $item->delete();
+            } else {
+                $item->forceDelete();
+            }
+
+            return BaseJsonResponse::success("Registro excluído com sucesso");
+        } catch (Exception $e) {
+            return BaseJsonResponse::exception($e);
+        }
+    }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Base\BaseModel;
 use Illuminate\Http\{JsonResponse, Request};
 
-class BaseApiController extends Controller
+abstract class BaseApiController extends Controller
 {
     public function __construct(protected string $class)
     {
@@ -27,6 +27,16 @@ class BaseApiController extends Controller
     public function update(Request $request, string $id): JsonResponse
     {
         return $this->class::edit($request, $id);
+    }
+
+    public function destroyy(Request $request, string $id): JsonResponse
+    {
+        return $this->class::deleteItem($request, $id, false);
+    }
+
+    public function archive(Request $request, string $id): JsonResponse
+    {
+        return $this->class::deleteItem($request, $id, true);
     }
 
 }
