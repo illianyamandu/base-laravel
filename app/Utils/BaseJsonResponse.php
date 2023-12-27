@@ -17,7 +17,7 @@ class BaseJsonResponse
 
     public static string $codeFild = 'status_code';
 
-    public static string $messages = 'messages';
+    public static string $messagesFild = 'messages';
 
     /**
      * @param string $message
@@ -89,12 +89,12 @@ class BaseJsonResponse
     private static function response($success, $data, $message, $code, $errors, $messages)
     {
         return response()->json([
-            self::$successFild => $success,
-            self::$dataFild    => $data,
-            self::$messageFild => $message,
-            self::$errorFild   => $errors,
-            self::$messages    => $messages,
-            self::$codeFild    => $code,
+            self::$successFild  => $success,
+            self::$messageFild  => $message,
+            self::$dataFild     => $data,
+            self::$errorFild    => $errors,
+            self::$messagesFild => $messages,
+            self::$codeFild     => $code,
         ], $code);
     }
 }

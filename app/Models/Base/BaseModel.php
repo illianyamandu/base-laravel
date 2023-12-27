@@ -51,6 +51,19 @@ abstract class BaseModel extends Model implements IBaseModel
         return $query->paginate($perPage, $listingData);
     }
 
+    public static function list(Request $request, bool $noPagination = false, int $perPage = 10): JsonResponse
+    {
+        try {
+            $data = static::listing($request, $noPagination, $perPage);
+
+            if ($data instanceof Exception) return BaseJsonResponse::exception($data);
+
+            return BaseJsonResponse::success("Lista", $data->toArray());
+        } catch (Exception $e) {
+            return BaseJsonResponse::exception($e);
+        }
+    }
+
     /**
      * @return array<string, string>
      */
