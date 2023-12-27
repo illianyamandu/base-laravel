@@ -18,7 +18,7 @@ class DeleteGroupTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->delete(route('groups.api.destroy', $group->id))
+        $this->delete('api/groups/' . $group->id)
         ->assertStatus(200)
         ->assertJson([
             'success' => true,

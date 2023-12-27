@@ -29,7 +29,7 @@ if (!function_exists('buildStandardAPIRoutes')) {
             Route::post('/', [$controller, 'store'])->name($name . 'api.store');
             Route::put('/{id}', [$controller, 'update'])->name($name . 'api.update');
             Route::delete('/{id}', [$controller, 'destroy'])->name($name . 'api.destroy');
-            Route::delete('/{id}', [$controller, 'archive'])->name($name . 'api.archive');
+            Route::delete('archive/{id}', [$controller, 'archive'])->name($name . 'api.archive');
 
             if (!is_null($additionalRoutes)) {
                 $additionalRoutes();
@@ -46,9 +46,5 @@ Route::namespace('Api')->group(function () {
     // -----------------------------------------------------------------------------
     // Groups routes
     // -----------------------------------------------------------------------------
-    Route::prefix('groups')->group(function () {
-        Route::post('/', [GroupApiController::class, "store"])->name('groups.api.store');
-        Route::put('/{group_id}', [GroupApiController::class, 'update'])->name('groups.api.update');
-        Route::delete('/{group_id}', [GroupApiController::class, 'destroy'])->name('groups.api.destroy');
-    });
+    buildStandardAPIRoutes('groups', GroupApiController::class);
 });

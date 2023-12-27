@@ -9,6 +9,14 @@ use Tests\TestCase;
 
 class CreateGroupTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        /** loading route file manually */
+        include_once base_path('routes/api.php');
+    }
+
     /**
      * @test
      */
@@ -24,7 +32,7 @@ class CreateGroupTest extends TestCase
         $groupName = 'Funcionário';
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
@@ -56,7 +64,7 @@ class CreateGroupTest extends TestCase
         $groupName = null;
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
@@ -85,7 +93,7 @@ class CreateGroupTest extends TestCase
         $groupName = 'Funcionário';
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => null,
@@ -114,7 +122,7 @@ class CreateGroupTest extends TestCase
         $groupName = 'Funcionário';
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => null,
             'description' => 'Lorem impsum',
@@ -143,7 +151,7 @@ class CreateGroupTest extends TestCase
         $groupName = str_repeat('a', 256);
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
@@ -173,7 +181,7 @@ class CreateGroupTest extends TestCase
         $groupName = str_repeat('a', 256);
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
