@@ -25,12 +25,11 @@ if (!function_exists('buildStandardAPIRoutes')) {
     {
         Route::prefix($name)->group(function () use ($name, $controller, $additionalRoutes) {
             Route::get('/', [$controller, 'list'])->name($name . 'api.list');
-            Route::get('/create', [$controller, 'create'])->name($name . 'api.create');
+            Route::get('/{id}', [$controller, 'detailed'])->name($name . 'api.detailed');
             Route::post('/', [$controller, 'store'])->name($name . 'api.store');
-            Route::get('/{id}', [$controller, 'show'])->name($name . 'api.show');
-            Route::get('/{id}/edit', [$controller, 'edit'])->name($name . 'api.edit');
             Route::put('/{id}', [$controller, 'update'])->name($name . 'api.update');
             Route::delete('/{id}', [$controller, 'destroy'])->name($name . 'api.destroy');
+            Route::delete('archive/{id}', [$controller, 'archive'])->name($name . 'api.archive');
 
             if (!is_null($additionalRoutes)) {
                 $additionalRoutes();
@@ -47,9 +46,5 @@ Route::namespace('Api')->group(function () {
     // -----------------------------------------------------------------------------
     // Groups routes
     // -----------------------------------------------------------------------------
-    Route::prefix('groups')->group(function () {
-        Route::post('/', [GroupApiController::class, "store"])->name('groups.api.store');
-        Route::put('/{group_id}', [GroupApiController::class, 'edit'])->name('groups.api.edit');
-        Route::delete('/{group_id}', [GroupApiController::class, 'destroy'])->name('groups.api.destroy');
-    });
+    buildStandardAPIRoutes('groups', GroupApiController::class);
 });

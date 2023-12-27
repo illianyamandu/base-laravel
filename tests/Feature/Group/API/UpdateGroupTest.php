@@ -4,11 +4,20 @@ namespace Tests\Feature\Group\API;
 
 use App\Models\Permissions\Group;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UpdateGroupTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        /** loading route file manually */
+        include_once base_path('routes/api.php');
+    }
+
     /**
      * @test
      */
@@ -20,11 +29,14 @@ class UpdateGroupTest extends TestCase
         $newGroupName = 'New Group Name';
 
         $this->actingAs($user);
-        $this->put(route('groups.api.edit', $group->id), [
+        $this->put('api/groups/' . $group->id, [
             'name'        => $newGroupName,
             'slug'        => Str::slug($newGroupName, '-'),
             'description' => 'New Group Description',
-        ])->assertRedirect(route('groups.index'));
+        ])->assertStatus(200)
+        ->assertJson([
+            'success' => true,
+        ]);
 
         $group->refresh();
 
@@ -36,7 +48,7 @@ class UpdateGroupTest extends TestCase
     /**
      * @test
      */
-    public function name_shoul_be_not_updated_id_not_provided()
+    public function name_shoul_be_not_updated_if_not_provided()
     {
         $user  = User::factory()->createOne();
         $group = Group::factory()->createOne();
@@ -44,11 +56,14 @@ class UpdateGroupTest extends TestCase
         $name = $group->name;
 
         $this->actingAs($user);
-        $this->put(route('groups.api.edit', $group->id), [
+        $this->put('api/groups/' . $group->id, [
             'name'        => null,
             'slug'        => Str::slug($name, '-'),
             'description' => 'New Group Description',
-        ])->assertRedirect(route('groups.index'));
+        ])->assertStatus(200)
+        ->assertJson([
+            'success' => true,
+        ]);
 
         $group->refresh();
 
@@ -60,7 +75,7 @@ class UpdateGroupTest extends TestCase
     /**
      * @test
      */
-    public function description_shoul_be_not_updated_id_not_provided()
+    public function description_shoul_be_not_updated_if_not_provided()
     {
         $user  = User::factory()->createOne();
         $group = Group::factory()->createOne();
@@ -69,11 +84,14 @@ class UpdateGroupTest extends TestCase
         $description = $group->description;
 
         $this->actingAs($user);
-        $this->put(route('groups.api.edit', $group->id), [
+        $this->put('api/groups/' . $group->id, [
             'name'        => $name,
             'slug'        => Str::slug($name, '-'),
             'description' => null,
-        ])->assertRedirect(route('groups.index'));
+        ])->assertStatus(200)
+        ->assertJson([
+            'success' => true,
+        ]);
 
         $group->refresh();
 
@@ -93,10 +111,13 @@ class UpdateGroupTest extends TestCase
         $newGroupName = 'New Group Name';
 
         $this->actingAs($user);
-        $this->put(route('groups.api.edit', $group->id), [
+        $this->put('api/groups/' . $group->id, [
             'name'        => $newGroupName,
             'description' => 'New Group Description',
-        ])->assertRedirect(route('groups.index'));
+        ])->assertStatus(200)
+        ->assertJson([
+            'success' => true,
+        ]);
 
         $group->refresh();
 

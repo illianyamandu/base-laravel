@@ -24,6 +24,15 @@ class Group extends BaseModel
         'name', 'slug', 'description',
     ];
 
+    public function getStoreValidator($data)
+    {
+        return [
+            'name'        => 'required|max:255',
+            'slug'        => 'required|max:255',
+            'description' => 'required',
+        ];
+    }
+
     /**
      * @return string[]
      */
@@ -32,6 +41,21 @@ class Group extends BaseModel
         return [
             'id', 'name', 'slug', 'description',
         ];
+    }
+
+    public static function editData($data, &$dbInstance)
+    {
+        if (!isset($data['name'])) {
+            $data['name'] = $dbInstance->name;
+        } elseif (strcasecmp($data['name'], $dbInstance->name) !== 0) {
+            $data['slug'] = Str::slug($data['name'], '-');
+        }
+
+        if (!isset($data['description'])) {
+            $data['description'] = $dbInstance->description;
+        }
+
+        return parent::editData($data, $dbInstance);
     }
 
     public function users(): BelongsToMany

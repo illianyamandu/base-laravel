@@ -9,6 +9,14 @@ use Tests\TestCase;
 
 class CreateGroupTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        /** loading route file manually */
+        include_once base_path('routes/api.php');
+    }
+
     /**
      * @test
      */
@@ -24,14 +32,17 @@ class CreateGroupTest extends TestCase
         $groupName = 'Funcionário';
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
         ]);
 
         // Assert
-        $request->assertRedirect(route('groups.index'));
+        $request->assertStatus(200)
+        ->assertJson([
+            'success' => true,
+        ]);
 
         $this->assertDatabaseHas('groups', [
             'name'        => $groupName,
@@ -53,17 +64,20 @@ class CreateGroupTest extends TestCase
         $groupName = null;
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.name', [
-                    'The name field is required.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo name é obrigatório.', $arrayResponse['errors']);
     }
 
     /**
@@ -79,17 +93,20 @@ class CreateGroupTest extends TestCase
         $groupName = 'Funcionário';
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => null,
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.description', [
-                    'The description field is required.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo description é obrigatório.', $arrayResponse['errors']);
     }
 
     /**
@@ -105,17 +122,20 @@ class CreateGroupTest extends TestCase
         $groupName = 'Funcionário';
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => null,
             'description' => 'Lorem impsum',
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.slug', [
-                    'The slug field is required.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo slug é obrigatório.', $arrayResponse['errors']);
     }
 
     /**
@@ -131,17 +151,20 @@ class CreateGroupTest extends TestCase
         $groupName = str_repeat('a', 256);
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.name', [
-                    'The name field must not be greater than 255 characters.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo name não pode ser superior a 255 caracteres.', $arrayResponse['errors']);
 
     }
 
@@ -158,17 +181,20 @@ class CreateGroupTest extends TestCase
         $groupName = str_repeat('a', 256);
 
         // Act
-        $request = $this->post(route('groups.api.store'), [
+        $request = $this->post('/api/groups', [
             'name'        => $groupName,
             'slug'        => Str::slug($groupName, '-'),
             'description' => 'Funcionários da equipe',
         ]);
 
         // Assert
-        $request->assertStatus(401)
-                ->assertJsonPath('error.slug', [
-                    'The slug field must not be greater than 255 characters.',
+        $request->assertStatus(400)
+                ->assertJson([
+                    'success' => false,
                 ]);
+
+        $arrayResponse = (json_decode($request->getContent(), true));
+        $this->assertContains('O campo slug não pode ser superior a 255 caracteres.', $arrayResponse['errors']);
     }
 
     /**
