@@ -43,6 +43,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Api')->group(function () {
+    Route::middleware('auth:sanctum ')->group(function () {
+    });
     // -----------------------------------------------------------------------------
     // Groups routes
     // -----------------------------------------------------------------------------
