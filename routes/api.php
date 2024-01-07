@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\{LoginApiController, LogoutApiController};
 use App\Http\Controllers\Api\GroupApiController;
-use App\Models\Permissions\Group;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +28,7 @@ if (!function_exists('buildStandardAPIRoutes')) {
             Route::post('/', [$controller, 'store'])->name($name . 'api.store');
             Route::put('/{id}', [$controller, 'update'])->name($name . 'api.update');
             Route::delete('/{id}', [$controller, 'destroy'])->name($name . 'api.destroy');
-            Route::delete('archive/{id}', [$controller, 'archive'])->name($name . 'api.archive');
+            Route::delete('/archive/{id}', [$controller, 'archive'])->name($name . 'api.archive');
 
             if (!is_null($additionalRoutes)) {
                 $additionalRoutes();
@@ -38,13 +37,26 @@ if (!function_exists('buildStandardAPIRoutes')) {
     }
 }
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::namespace('Api')->group(function () {
     // -----------------------------------------------------------------------------
-    // Groups routes
+    // Public routes
     // -----------------------------------------------------------------------------
-    buildStandardAPIRoutes('groups', GroupApiController::class);
+    Route::prefix('auth')->group(function () {
+        Route::post('login', [LoginApiController::class, 'login'])->name('auth.api.login');
+    });
+
+    // -----------------------------------------------------------------------------
+    // Authenticated routes
+    // -----------------------------------------------------------------------------
+    Route::middleware('auth:sanctum')->group(function () {
+
+        Route::prefix('auth')->group(function () {
+            Route::delete('/logout', [LogoutApiController::class, 'logout'])->name('auth.api.logout');
+        });
+
+        // -----------------------------------------------------------------------------
+        // Groups routes
+        // -----------------------------------------------------------------------------
+        buildStandardAPIRoutes('groups', GroupApiController::class);
+    });
 });
