@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\{AuthApiController, LoginApiController};
 use App\Http\Controllers\Api\GroupApiController;
 use App\Models\Permissions\Group;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,15 +38,22 @@ if (!function_exists('buildStandardAPIRoutes')) {
     }
 }
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::namespace('Api')->group(function () {
-    Route::middleware('auth:sanctum ')->group(function () {
+    // -----------------------------------------------------------------------------
+    // Public routes
+    // -----------------------------------------------------------------------------
+    Route::prefix('auth')->group(function () {
+        Route::post('login', [LoginApiController::class, 'login'])->name('auth.api.login');
     });
+
     // -----------------------------------------------------------------------------
-    // Groups routes
+    // Authenticated routes
     // -----------------------------------------------------------------------------
-    buildStandardAPIRoutes('groups', GroupApiController::class);
+    Route::middleware('auth:sanctum')->group(function () {
+
+        // -----------------------------------------------------------------------------
+        // Groups routes
+        // -----------------------------------------------------------------------------
+        buildStandardAPIRoutes('groups', GroupApiController::class);
+    });
 });
