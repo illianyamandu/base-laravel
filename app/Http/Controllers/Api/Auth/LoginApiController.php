@@ -26,7 +26,7 @@ class LoginApiController extends Controller
         ]);
     }
 
-    public function login(Request $request): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         $validator = $this->validateLogin($request);
 

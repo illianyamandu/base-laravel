@@ -9,7 +9,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class LogoutApiController extends Controller
 {
-    public function logout(Request $request): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         /** @var PersonalAccessToken */
         $token = $request->user()->currentAccessToken();
